@@ -1,6 +1,5 @@
-
 import React, {useState} from 'react'
-export default function TextForm(props) {
+export default function Textform(props) {
   const [text, setText] = useState('');
     const handleUpClick = () => {
       if(text==='')
@@ -23,7 +22,7 @@ export default function TextForm(props) {
       // Capitalize the first letter of the last word and add it to newText
     
       setText(newText);
-      props.showalert("Converted to mixed case","success ")
+      props.showAlert("Converted to mixed case","success ")
     }
     const handledownClick = () => {
       if(text==='')
@@ -33,7 +32,7 @@ export default function TextForm(props) {
       }
       let othertext=text.toLowerCase();
       setText(othertext);
-      props.showalert("Text converted to lower case","success ")
+      props.showAlert("Text converted to lower case","success ")
     }
     function reverse(str)
     {
@@ -65,7 +64,7 @@ export default function TextForm(props) {
   newText+=reverse(word);
   word=""  
   setText(newText)
-  props.showalert("Words in reverse order","success ")
+  props.showAlert("Words in reverse order","success ")
 }
     const cleartext=()=>{
       if(text==='')
@@ -74,7 +73,7 @@ export default function TextForm(props) {
         return;
       }
       setText('');
-      props.showalert("Text cleared!","success ")
+      props.showAlert("Text cleared!","success ")
       return;
     }
     const encrypttext = () => {
@@ -96,7 +95,7 @@ export default function TextForm(props) {
         encrypt = encrypt + text.charCodeAt(i);
       }
       setText(encrypt);
-      props.showalert("Text encrypted!","success ")
+      props.showAlert("Text encrypted!","success ")
     }
     const copytext=() => {
       var text=document.getElementById("myBox");
@@ -104,10 +103,10 @@ export default function TextForm(props) {
         alert("No text at all");
         return;
       } else {
-        text.select();
+        
         navigator.clipboard.writeText(text.value);
       }
-      props.showalert("Text copied","success ")
+      props.showAlert("Text copied","success ")
     }    
     const handleextraspaces=()=>
     {
@@ -118,7 +117,7 @@ export default function TextForm(props) {
       else{
       let newText=text.split(/[ ]+/);
       setText(newText.join(" "));
-      props.showalert("Extra spaces handled","success ")
+      props.showAlert("Extra spaces handled","success ")
 
     }
   }
@@ -134,20 +133,20 @@ export default function TextForm(props) {
     <div className="container" style={{color:props.mode==='dark'?'white':'black'}}>
         <h1>{props.heading}</h1>
     <div className="mb-3">
-  <textarea className="form-control" onChange={handleOnChange} value={text} id="myBox" rows="8" style={{color:props.mode==='dark'?'white':'black',backgroundColor:props.mode==='dark'?'grey':'white'}}></textarea>
+  <textarea className="form-control" onChange={handleOnChange} value={text} id="myBox" rows="8" style={{color:props.mode==='dark'?'white':'black',backgroundColor:props.mode==='dark'?'#13466e':'white'}}></textarea>
 </div>
-<button className="btn btn-danger text-info" onClick={handleUpClick}>Convert to mixed case</button>
-<button className=" mx-3 btn btn-info" onClick={handledownClick} >convert to lower case</button>
-<button className=" mx-3 btn btn-info" onClick={cleartext} >Clear text</button>
-<button className=" mx-3 btn btn-info" onClick={reversetext} >Reverse text</button>
-<button className=" mx-3 btn btn-info" onClick={encrypttext} >Encrypt text</button>
-<button className=" mx-3 btn btn-info" onClick={copytext} >Text copy</button>
-<button className=" mx-3 btn btn-info" onClick={handleextraspaces} >Handle extra spaces</button>
+<button className="btn btn-danger text-info mx-3 my-3" onClick={handleUpClick}>Convert to mixed case</button>
+<button className=" mx-3 my-3 btn btn-info" onClick={handledownClick} >convert to lower case</button>
+<button className=" mx-3 my-3 btn btn-info" onClick={cleartext} >Clear text</button>
+<button className=" mx-3 my-3 btn btn-info" onClick={reversetext} >Reverse word order</button>
+<button className=" mx-3 my-3 btn btn-info" onClick={encrypttext} >Encrypt text</button>
+<button className=" mx-3 my-3 btn btn-info" onClick={copytext} >Text copy</button>
+<button className=" mx-3 my-3 btn btn-info" onClick={handleextraspaces} >Handle extra spaces</button>
 </div>
 <div className="container my-3" style={{color:props.mode==='dark'?'white':'black'}}>
   <h1>Your Text summary here</h1>
-  <p>{text.trim() === "" ? "0" : text.split(" ").length} words, {text.length} characters</p>
-  <p>time taken to read is {0.008*(text.trim() === "" ? "0" : text.split(" ").length)} minutes read</p>
+  <p>{text.trim() === "" ? "0" : text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words, {text.length} characters</p>
+  <p>time taken to read is {0.008*(text.trim() === "" ? "0" : text.split(/\s+/).filter((element)=>{return element.length!==0}).length)} minutes read</p>
   <h3>preview</h3>
   <p>{text!==''?text:"Enter text something in the textbox above to preview it here"}</p>
 </div>
